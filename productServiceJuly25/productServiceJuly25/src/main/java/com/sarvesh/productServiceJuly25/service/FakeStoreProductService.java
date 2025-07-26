@@ -2,6 +2,7 @@ package com.sarvesh.productServiceJuly25.service;
 
 import com.sarvesh.productServiceJuly25.dto.FakeStoreProductDto;
 
+import com.sarvesh.productServiceJuly25.exception.ProductNotFoundException;
 import com.sarvesh.productServiceJuly25.model.Category;
 import com.sarvesh.productServiceJuly25.model.Product;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,14 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public Product getSingleProduct(Long productId) {
-        FakeStoreProductDto productDto = restTemplate.getForEntity("https://fakestoreapi.com/products/"+productId, FakeStoreProductDto.class).getBody();
+    public Product getSingleProduct(Long productId) throws ProductNotFoundException {
+        FakeStoreProductDto productDto = restTemplate.getForObject("https://fakestoreapi.com/products/"+productId, FakeStoreProductDto.class);
         //coverting FakeStore
-        System.out.println(productDto);
+        if(productDto==null){
+            throw new ProductNotFoundException("Product not found",productId);
+        }
         Product product = convertFakeStoreProductDtoToProduct(productDto);
-        System.out.println(product);
+
         return product;
     }
 

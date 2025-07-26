@@ -1,7 +1,10 @@
 package com.sarvesh.productServiceJuly25.controller;
 
+import com.sarvesh.productServiceJuly25.exception.ProductNotFoundException;
 import com.sarvesh.productServiceJuly25.model.Product;
 import com.sarvesh.productServiceJuly25.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,9 +18,11 @@ public class ProductController {
         this.productService=productService;
     }
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable("id") Long productId){
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
 
-        return productService.getSingleProduct(productId);
+
+        return new ResponseEntity<>(productService.getSingleProduct(productId),HttpStatus.OK);
+
     }
     @GetMapping()
     public List<Product> getAllProduct(){
@@ -39,6 +44,12 @@ public class ProductController {
     @PutMapping
     public void replaceProduct(@PathVariable("id") Long id,@RequestBody Product product){
 
+    }
+    // here we are handling exception locally means this local exception handler so it will be given priority first
+    //and if we would not have handle it here then it would have to gone to controller advice for additional check
+    @ExceptionHandler(ProductNotFoundException.class)
+    private String handleProductNotFound(){
+        return "productNotFound oye hoye";
     }
 
 }
