@@ -30,15 +30,9 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public List<Product> getAllProduct() {
-       List<FakeStoreProductDto> productDtos =  restTemplate.getForObject("https://fakestoreapi.com/products",List<FakeStoreProductDto>.class);//
-        /* here the error we get beacuse we are using List of generics, and there will type eraser propert
-        which will be applicable on generics which will erase the data type of generic at run time and it will be a raw list
-        and here we are saying convert the response of api to List<FakeStoreDto> at run time which is contradicting in case of generics
-        so what is the solution:
-        solution is use array , because type eraser property is related to or applied on generics
-        use FakeStoreDto[] fakeStoreDtos
+        FakeStoreProductDto[] fakeStoreProductDtos;
+        FakeStoreProductDto[] productDtos =  restTemplate.getForObject("https://fakestoreapi.com/products",FakeStoreProductDto[].class);//solved problem due to type eraser property of generics by using FakeStroreDto[] (i.e using array)
 
-       */
        List<Product> products = new ArrayList<>();
 
        for(FakeStoreProductDto fakeStoreProductDto:productDtos){

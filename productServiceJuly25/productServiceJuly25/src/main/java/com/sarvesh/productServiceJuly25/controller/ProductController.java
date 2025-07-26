@@ -21,7 +21,8 @@ public class ProductController {
     }
     @GetMapping()
     public List<Product> getAllProduct(){
-    return new ArrayList<>();
+
+        return productService.getAllProduct();
     }
 
     public Product createProduct(@RequestBody Product product){
