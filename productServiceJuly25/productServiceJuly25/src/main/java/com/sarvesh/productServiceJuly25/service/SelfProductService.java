@@ -18,8 +18,8 @@ public class SelfProductService implements ProductService{
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
         Optional<Product> optionalProduct = productRepository.findById(productId);
-        if(optionalProduct==null){
-            throw new ProductNotFoundException("product not found",productId);
+        if(optionalProduct.isEmpty()){
+            throw new ProductNotFoundException("product not found with id = "+productId);
         }
         Product product = optionalProduct.get();
         return product;
@@ -27,7 +27,7 @@ public class SelfProductService implements ProductService{
 
     @Override
     public List<Product> getAllProduct() {
-        return List.of();
+        return productRepository.findAll();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     private ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(ProductNotFoundException exception){
         ProductNotFoundExceptionDto dto = new ProductNotFoundExceptionDto();
-        dto.setMessage(exception.getMessage()+" with id="+exception.getId());
+        dto.setMessage(exception.getMessage());
         dto.setResolution("Please provide valid productId");
         return new ResponseEntity<>(dto, HttpStatus.UNAUTHORIZED);
     }

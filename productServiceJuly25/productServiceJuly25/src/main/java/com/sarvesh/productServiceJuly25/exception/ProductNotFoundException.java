@@ -6,8 +6,7 @@ import lombok.Data;
 
 public class ProductNotFoundException extends Exception{
     private Long Id;
-    public ProductNotFoundException(String msg,Long Id){
+    public ProductNotFoundException(String msg){
         super(msg);
-        this.Id = Id;
     }
 }
