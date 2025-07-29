@@ -1,11 +1,13 @@
 package com.sarvesh.productServiceJuly25.inheritancedemo.tableperclass;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Instructor {
+@Entity(name = "tpc_instructors")
+public class Instructor extends User{
     private String specialization;
     private double avgRating;
 }

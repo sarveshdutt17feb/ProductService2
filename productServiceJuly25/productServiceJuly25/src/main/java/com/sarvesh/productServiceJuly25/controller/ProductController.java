@@ -3,6 +3,7 @@ package com.sarvesh.productServiceJuly25.controller;
 import com.sarvesh.productServiceJuly25.exception.ProductNotFoundException;
 import com.sarvesh.productServiceJuly25.model.Product;
 import com.sarvesh.productServiceJuly25.service.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("SelfProductService") ProductService productService){
         this.productService=productService;
     }
     @GetMapping("/{id}")
@@ -47,9 +48,9 @@ public class ProductController {
     }
     // here we are handling exception locally means this local exception handler so it will be given priority first
     //and if we would not have handle it here then it would have to gone to controller advice for additional check
-    @ExceptionHandler(ProductNotFoundException.class)
-    private String handleProductNotFound(){
-        return "productNotFound oye hoye";
-    }
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    private String handleProductNotFound(){
+//        return "productNotFound oye hoye";
+//    }
 
 }
