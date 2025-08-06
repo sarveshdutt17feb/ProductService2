@@ -30,9 +30,10 @@ public class ProductController {
 
         return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);
     }
-
+    @PostMapping()
     public Product createProduct(@RequestBody Product product){
-        return new Product();
+
+        return productService.createProduct(product);
     }
     @DeleteMapping("/{id}")
     public void deleteProduct(){
