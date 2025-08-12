@@ -36,26 +36,26 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product createProduct(Product product) {
-        if (product.getCategory() != null) {
-            if (product.getCategory().getId() == null) {
-                //Create a Category first.
-                Category category = product.getCategory();
-
-                String categoryValue = category.getValue();
-
-                Optional<Category> optionalCategory = categoryRepository.findByValue(categoryValue);
-
-                if (optionalCategory.isEmpty()) {
-                    category = categoryRepository.save(category);
-                    product.setCategory(category);
-                } else {
-                    product.setCategory(optionalCategory.get());
-                }
-            }
-        } else {
-            throw new RuntimeException("Category can't be empty while creating a Product.");
-        }
-
+//        if (product.getCategory() != null) {
+//            if (product.getCategory().getId() == null) {
+//                //Create a Category first.
+//                Category category = product.getCategory();
+//
+//                String categoryValue = category.getValue();
+//
+//                Optional<Category> optionalCategory = categoryRepository.findByValue(categoryValue);
+//
+//                if (optionalCategory.isEmpty()) {
+//                    category = categoryRepository.save(category);
+//                    product.setCategory(category);
+//                } else {
+//                    product.setCategory(optionalCategory.get());
+//                }
+//            }
+//        } else {
+//            throw new RuntimeException("Category can't be empty while creating a Product.");
+//        }
+        System.out.println("DEBUG");
         return productRepository.save(product);
     }
 

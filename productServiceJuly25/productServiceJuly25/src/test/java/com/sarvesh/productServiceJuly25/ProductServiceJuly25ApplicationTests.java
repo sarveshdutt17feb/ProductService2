@@ -30,23 +30,23 @@ class ProductServiceJuly25ApplicationTests {
 	@Test
 	@Transactional
 	void testQuery() {
-		ProductWithTitleAndPrice productsWithTitleAndPrice =
-				productRepository.getTitleAndPriceById(2L);
-		System.out.println(productsWithTitleAndPrice.getTitle());
-		System.out.println(productsWithTitleAndPrice.getPrice());
+		List<ProductWithTitleAndPrice> productsWithTitleAndPrice =
+				productRepository.getTitleAndPrice();
+//		System.out.println(productsWithTitleAndPrice.getTitle());
+//		System.out.println(productsWithTitleAndPrice.getPrice());
 
-//		for (ProductWithTitleAndPrice productWithTitleAndPrice : productsWithTitleAndPrice) {
-//			System.out.println(productWithTitleAndPrice.getTitle());
-//			System.out.println(productWithTitleAndPrice.getPrice());
-//			System.out.println("-----------");
-//		}
+		for (ProductWithTitleAndPrice productWithTitleAndPrice : productsWithTitleAndPrice) {
+			System.out.println(productWithTitleAndPrice.getTitle());
+			System.out.println(productWithTitleAndPrice.getPrice());
+			System.out.println("-----------");
+		}
 
 //        categoryRepository.deleteById(2L);
 
-//		//T1
-//		Optional<Category> optionalCategory = categoryRepository.findById(1L);
-//
-//		//T2
+		//T1
+		Optional<Category> optionalCategory = categoryRepository.findById(1L);
+
+		//T2
 //		List<Product> products = optionalCategory.get().getProducts();
 //
 //		for (Product product : products) {

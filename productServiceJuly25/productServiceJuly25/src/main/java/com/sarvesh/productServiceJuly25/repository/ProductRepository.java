@@ -15,6 +15,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Override
     List<Product> findAll();
-    @Query("select p.title as title,p.price as price from products p where p.id =:Id")
-    ProductWithTitleAndPrice getTitleAndPriceById(@Param("Id") Long Id);
+//    @Query("select p.title as title,p.price as price from products p where p.id =:Id")
+//    ProductWithTitleAndPrice getTitleAndPriceById(@Param("Id") Long Id);
+
+    @Query("select p.title as title,p.price as price from products p")
+    List<ProductWithTitleAndPrice> getTitleAndPrice();
+
 }
