@@ -4,6 +4,7 @@ import com.sarvesh.productServiceJuly25.exception.ProductNotFoundException;
 import com.sarvesh.productServiceJuly25.model.Product;
 import com.sarvesh.productServiceJuly25.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +26,22 @@ public class ProductController {
         return new ResponseEntity<>(productService.getSingleProduct(productId),HttpStatus.OK);
 
     }
-    @GetMapping()
-    public ResponseEntity<List<Product>> getAllProduct(){
+    // http://localhost:8080/products => Get all the products
+    @GetMapping
+    public Page<Product> getAllProducts(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        // @9876
+//        List<Product> products = productService.getAllProducts(); // [@123, @865, @654]
+//
+//        List<Product> newProductList = new ArrayList<>();
+//        newProductList.add(products.get(0));
+//        newProductList.add(products.get(1));
+//        newProductList.add(products.get(2));
+//
+//        newProductList.get(0).setTitle("Random Title");
 
-        return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);
+        return productService.getAllProducts(pageNumber,pageSize);
     }
+
     @PostMapping()
     public Product createProduct(@RequestBody Product product){
 

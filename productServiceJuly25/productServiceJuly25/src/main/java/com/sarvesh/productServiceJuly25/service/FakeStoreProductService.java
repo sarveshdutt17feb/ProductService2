@@ -5,6 +5,8 @@ import com.sarvesh.productServiceJuly25.dto.FakeStoreProductDto;
 import com.sarvesh.productServiceJuly25.exception.ProductNotFoundException;
 import com.sarvesh.productServiceJuly25.model.Category;
 import com.sarvesh.productServiceJuly25.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,17 +34,18 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProduct() {
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
         FakeStoreProductDto[] fakeStoreProductDtos;
         FakeStoreProductDto[] productDtos =  restTemplate.getForObject("https://fakestoreapi.com/products",FakeStoreProductDto[].class);//solved problem due to type eraser property of generics by using FakeStroreDto[] (i.e using array)
 
-       List<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
 
-       for(FakeStoreProductDto fakeStoreProductDto:productDtos){
+        for(FakeStoreProductDto fakeStoreProductDto:productDtos){
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
         }
-       return products;
+        return new PageImpl<>(products);
     }
+
 
     @Override
     public Product createProduct(Product product) {
